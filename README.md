@@ -1,14 +1,17 @@
 # rtinst
 
-
+This rtinst modification is for my own use. NO SUPPORT. If you have any issues, please use the original rtinst.  
 
 ## Installation
 
 ```
+bash <(curl -Ls https://github.com/Aniverse/rtinst/raw/master/rtsetup)
+```
+```
 bash -c "$(wget --no-check-certificate -qO- https://raw.githubusercontent.com/Aniverse/rtinst/master/rtsetup)"
 ```
 ```
-rtinst -$opinions -v $rtorrentVERSION -u $USERNAME -p $PASSWORD -w $WEBPASSWORD 
+rtinst -$options -v $rtorrentVERSION -u $USERNAME -p $PASSWORD -w $WEBPASSWORD 
 ```
 ```
 rtinst -tfylmi -v 0.9.4 -u aniverse -p kinots74212 -w rutmypa44  
@@ -31,7 +34,7 @@ rtinst -tfylmi -v 0.9.4 -u aniverse -p kinots74212 -w rutmypa44
 
 ## Modifications
 
-- **New Opinions**  
+- **New options**  
 Using `-i` opinion to enable IPv6 support  
 Using `-f` opinion to set FTP port to 21  
 Using `-t` opinion to keep the old SSH port  
@@ -50,12 +53,21 @@ Enable m2ts support for screenshots plugin
 Set min rss interval to 0.1 minutes  
 
 - **Install h5ai as file indexer**  
-- **Install ffmpeg 4.1 from static builds**  
-- **Install rar, unrar 5.6.1**  
+
+- **Install ffmpeg 4.2 from static builds**  
+
+- **Install rar, unrar 5.9.0**  
+
 - **Tweak rTorrent default settings**  
+
 - **Do NOT disable root login**  
+
 - **Raised open file limits to 666666**  
-- **Setup Nginx Reverse Proxy for Deluge, qBittorrent, Transmission, Flood and Flexget**  
+
+- **Setup Nginx Reverse Proxy for some apps**  
+This is for [inexistence](https://github.com/Aniverse/inexistence) script.  
+Currently it supports Flood, Deluge, qBittorrent, FlexGet, noVNC when using default webui ports.  
+
 - Set SCGIServerTimeout to 60  
 
 
@@ -66,3 +78,4 @@ Set min rss interval to 0.1 minutes
 [The detailed user guide](https://github.com/arakasi72/rtinst/wiki/Guide)  
 [The detailed installation guide](https://github.com/arakasi72/rtinst/wiki/Installing-rtinst)  
 [License](https://github.com/arakasi72/rtinst/blob/master/LICENSE)  
+

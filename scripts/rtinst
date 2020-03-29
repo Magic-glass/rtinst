@@ -869,17 +869,19 @@ adlpass=$(genpasswd $(random 12 16))
 
 mkdir -p $home/.irssi/scripts/autorun
 cd $home/.irssi/scripts
-curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
-unzip -qq -o autodl-irssi.zip | tee -a $logfile
-rm autodl-irssi.zip
+# rls_tag=$(curl -sL https://github.com/autodl-community/autodl-irssi/releases/latest | grep -oE "autodl-irssi-v[0-9.]+.zip" | head -1 | grep -oP "\d.\d.\d")
+# wget -nv https://github.com/autodl-community/autodl-irssi/releases/download/${rls_tag}/autodl-irssi-v${rls_tag}.zip >> $logfile 2>&1
+# curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
+curl -sL http://git.io/vlcND | sed "s|,|\n|g" | grep browser_download_url  | grep -oP "https.*zip" | xargs wget --quiet -O autodl-irssi.zip
+unzip -qq -o autodl-irssi-v${rls_tag}.zip | tee -a $logfile
+rm -f autodl-irssi-v${rls_tag}.zip
 cp autodl-irssi.pl autorun/
 mkdir -p $home/.autodl
 
 cd /var/www/rutorrent/plugins
-git clone -q https://github.com/autodl-community/autodl-rutorrent.git autodl-irssi | tee -a $home/rtinst.info
+git clone -q --depth=1 https://github.com/autodl-community/autodl-rutorrent.git autodl-irssi | tee -a $home/rtinst.info
 
 mkdir /var/www/rutorrent/conf/users/$user/plugins/autodl-irssi
-
 touch /var/www/rutorrent/conf/users/$user/plugins/autodl-irssi/conf.php
 
 echo "<?php" > /var/www/rutorrent/conf/users/$user/plugins/autodl-irssi/conf.php

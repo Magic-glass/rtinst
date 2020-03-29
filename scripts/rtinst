@@ -536,8 +536,8 @@ if ! installed unrar; then
         tar zxf rarlinux-5.9.b3.tar.gz >> $logfile 2>&1
         rm rarlinux-5.9.b3.tar.gz
     fi
-    cp -f /root/rar/rar /bin/rar
-    cp -f /root/rar/unrar /bin/unrar
+    cp -f /tmp/rar/rar/rar /bin/rar
+    cp -f /tmp/rar/rar/unrar /bin/unrar
     cd
     rm -r /tmp/rar
 fi
@@ -1000,6 +1000,7 @@ chmod -R 755 /var/www/rutorrent/plugins/filemanager/scripts
 
 # Need to disable GeoIP plugin
 git clone -q https://github.com/Micdu70/geoip2-rutorrent /var/www/rutorrent/plugins/geoip2 >> $logfile 2>&1
+apt-get install -y php-bcmath >> $logfile 2>&1 # Not sure if this works on all systems
 
 svn co -q https://github.com/nelu/rutorrent-thirdparty-plugins/trunk/fileshare
 sed -i 's/$downloadpath .*/$downloadpath = '"'https:\/\/'"' . $_SERVER['"'HTTP_HOST'"'] . '"'\/share.php'"';/g' /var/www/rutorrent/plugins/fileshare/conf.php

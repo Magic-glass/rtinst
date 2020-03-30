@@ -873,8 +873,8 @@ cd $home/.irssi/scripts
 # wget -nv https://github.com/autodl-community/autodl-irssi/releases/download/${rls_tag}/autodl-irssi-v${rls_tag}.zip >> $logfile 2>&1
 # curl -sL http://git.io/vlcND | grep -Po '(?<="browser_download_url": ")(.*-v[\d.]+.zip)' | xargs wget --quiet -O autodl-irssi.zip
 curl -sL http://git.io/vlcND | sed "s|,|\n|g" | grep browser_download_url  | grep -oP "https.*zip" | xargs wget --quiet -O autodl-irssi.zip
-unzip -qq -o autodl-irssi-v${rls_tag}.zip | tee -a $logfile
-rm -f autodl-irssi-v${rls_tag}.zip
+unzip -qq -o autodl-irssi.zip | tee -a $logfile
+rm -f autodl-irssi.zip
 cp autodl-irssi.pl autorun/
 mkdir -p $home/.autodl
 

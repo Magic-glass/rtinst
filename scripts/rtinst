@@ -94,7 +94,7 @@ rudevflag=1
 rurelease=master
 passfile='/etc/nginx/.htpasswd'
 passfile='/etc/nginx/.htpasswd'
-package_list="sudo nano autoconf build-essential ca-certificates comerr-dev curl cfv dtach htop irssi libcloog-ppl-dev libcppunit-dev $libcver libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev libtool libxml2-dev ncurses-base ncurses-term ntp patch pkg-config $phpver-fpm $phpver $phpver-cli $phpver-dev $phpver-curl $geoipver $phpver-mcrypt $phpver-xmlrpc python-scgi screen subversion texinfo unzip zlib1g-dev libcurl4-openssl-dev mediainfo software-properties-common aptitude $phpver-json nginx-full apache2-utils git libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libjson-rpc-perl libarchive-zip-perl $phpver-xml mktorrent"
+package_list="sudo nano autoconf build-essential ca-certificates comerr-dev curl cfv dtach htop irssi libcloog-ppl-dev libcppunit-dev $libcver libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev libtool libxml2-dev ncurses-base ncurses-term ntp patch pkg-config $phpver-fpm $phpver $phpver-cli $phpver-dev $phpver-curl $geoipver $phpver-mcrypt $phpver-xmlrpc python-scgi screen subversion texinfo unzip zlib1g-dev libcurl4-openssl-dev mediainfo software-properties-common aptitude $phpver-json nginx-full apache2-utils git libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libjson-rpc-perl libarchive-zip-perl $phpver-xml mktorrent make"
 # libcloog-ppl-dev libcppunit-dev cfv
 Install_list=""
 unixpass=""
@@ -524,20 +524,14 @@ fi
 # install unrar package
 # https://www.rarlab.com/download.htm
 if ! installed unrar; then
+    rar_version=5.9.0
     echo "Installing rar/unrar"
-    mkdir -p /tmp/rar
-    cd /tmp/rar
-    if [ "$(uname -m)" = "x86_64" ]; then
-        wget https://www.rarlab.com/rar/rarlinux-x64-5.9.0.tar.gz >> $logfile 2>&1
-        tar zxf rarlinux-x64-5.9.0.tar.gz >> $logfile 2>&1
-    elif [ "$(uname -m)" = "x86_32" ]; then
-        wget https://www.rarlab.com/rar/rarlinux-5.9.0.tar.gz >> $logfile 2>&1
-        tar zxf rarlinux-5.9.0.tar.gz >> $logfile 2>&1
-    fi
-    cp -f /tmp/rar/rar/rar /bin/rar >> $logfile 2>&1
-    cp -f /tmp/rar/rar/unrar /bin/unrar >> $logfile 2>&1
-    cd
-    rm -r /tmp/rar
+    mkdir -p /tmp/rar && cd /tmp/rar
+    wget https://www.rarlab.com/rar/rarlinux-x64-$rar_version.tar.gz >> $logfile 2>&1
+    tar zxf rarlinux-x64-$rar_version.tar.gz >> $logfile 2>&1
+    cd /tmp/rar/rar
+    make >> $logfile 2>&1
+    cd && rm -rf /tmp/rar
 fi
 
 if installed unrar; then

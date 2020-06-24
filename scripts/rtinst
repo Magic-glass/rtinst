@@ -686,11 +686,20 @@ echo "FTP port set to $ftpport"
 
 cd $home
 
-if [ -f "/etc/apache2/ports.conf" ]; then
-  echo "Detected apache2. Changing apache2 port to 81 in /etc/apache2/ports.conf" | tee -a $logfile
-  sed -i "s/Listen 80/Listen 81/g" /etc/apache2/ports.conf
-  service apache2 stop >> $logfile 2>&1
-fi
+# if [ -f "/etc/apache2/ports.conf" ]; then
+#   echo "Detected apache2. Changing apache2 port to 81 in /etc/apache2/ports.conf" | tee -a $logfile
+#   sed -i "s/Listen 80/Listen 81/g" /etc/apache2/ports.conf
+#   service apache2 stop >> $logfile 2>&1
+# fi
+# Remove apache2
+systemctl stop apache2 >/dev/null 2>&1
+systemctl disable apache2 >/dev/null 2>&1
+APACHE_PKGS='apache2 apache2-bin apache2-data'
+for depend in $APACHE_PKGS; do
+    DEBIAN_FRONTEND=noninteractive apt-get -y remove "${depend}" >>"${logfile}" 2>&1
+    DEBIAN_FRONTEND=noninteractive apt-get -y purge "${depend}" >>"${logfile}" 2>&1
+done
+apt-get -y autoclean >/dev/null 2>&1
 
 echo "Installing nginx" | tee -a $logfile
 

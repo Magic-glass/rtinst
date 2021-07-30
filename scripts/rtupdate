@@ -16,7 +16,6 @@ PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin:/sbin
 osname=$(lsb_release -si)
 relno=$(lsb_release -sr | cut -d. -f1)
 sourcedir='http://rtorrent.net/downloads/'
-sourcedir='https://github.com' # temporaryily fix
 
 xmlrpc_url='https://svn.code.sf.net/p/xmlrpc-c/code/stable/'
 xmlrpcloc='svn://svn.code.sf.net/p/xmlrpc-c/code/stable/'
@@ -125,7 +124,7 @@ if [[ $xmlrpc_repo = 1 ]]; then
   check_url $xmlrpc_url && { echo "OK";  xmlrpc_repo=0; } || { echo "FAIL"; xmlrpc_repo=1; }
 fi
 
-echo -n "rtorrent: "; check_url $sourcedir && echo "OK" || { echo "FAIL"; rt_repo=1; }
+# echo -n "rtorrent: "; check_url $sourcedir && echo "OK" || { echo "FAIL"; rt_repo=1; }
 
 if [ $rt_repo = 1 ]; then
   echo "The libtorrent/rtorrent file repositoy is offline"
@@ -168,16 +167,16 @@ if [ -z $passed_rtvers ]; then
 
 else
 
-    if [ "$passed_rtvers" = "latest" ] || [ $(wget -q -O - $sourcedir | grep -o "rtorrent-$passed_rtvers.tar.gz" | wc -l) -eq 0 ]; then
-        if [ "$passed_rtvers" != "latest" ]; then
-            echo "Could not find $passed_rtvers so using latest version instead"
-        fi
-        libvers=$latest_libvers
-        rtvers=$latest_rtvers
-    else
+#    if [ "$passed_rtvers" = "latest" ] || [ $(wget -q -O - $sourcedir | grep -o "rtorrent-$passed_rtvers.tar.gz" | wc -l) -eq 0 ]; then
+#        if [ "$passed_rtvers" != "latest" ]; then
+#            echo "Could not find $passed_rtvers so using latest version instead"
+#        fi
+#        libvers=$latest_libvers
+#        rtvers=$latest_rtvers
+#    else
         libvers=$(echo $passed_rtvers | awk -F. -v OFS=. '{$2='$(( $(echo $rtversion | cut -d. -f2) + 4 ))'; print }')
         rtvers=$passed_rtvers
-    fi
+#    fi
 
 fi
 

@@ -16,6 +16,7 @@ PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin:/sbin
 osname=$(lsb_release -si)
 relno=$(lsb_release -sr | cut -d. -f1)
 sourcedir='http://rtorrent.net/downloads/'
+sourcedir='https://github.com' # temporaryily fix
 
 xmlrpc_url='https://svn.code.sf.net/p/xmlrpc-c/code/stable/'
 xmlrpcloc='svn://svn.code.sf.net/p/xmlrpc-c/code/stable/'
